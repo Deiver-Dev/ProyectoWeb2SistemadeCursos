@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Estudiantes del Curso</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <h1>Estudiantes inscritos</h1>
+        <div>
+            <a href="/admin">Panel Admin</a>
+            <form method="post" action="/logout" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" style="background:none; border:none; color:#2E5FA3; cursor:pointer; font-size:14px; padding:0;">Cerrar Sesion</button>
+            </form>
+        </div>
+    </div>
+    <a href="/admin">← Volver al panel</a>
+    <h2>Curso: <span th:text="${curso.nombre}"></span></h2>
+    <table>
+        <thead>
+        <tr>
+            <th>Estudiante</th>
+            <th>Correo</th>
+            <th>Estado</th>
+            <th>Fecha</th>
+            <th>Registrar Nota</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="ins : ${inscripciones}">
+            <td th:text="${ins.estudiante.nombre}"></td>
+            <td th:text="${ins.estudiante.correo}"></td>
+            <td th:text="${ins.estado}"></td>
+            <td th:text="${ins.fechaInscripcion}"></td>
+            <td>
+                <form method="post" action="/admin/notas/registrar">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="inscripcionId" th:value="${ins.id}"/>
+                    <input type="hidden" name="cursoId" th:value="${curso.id}"/>
+                    <input type="number" name="valor" min="0" max="100" step="0.1" placeholder="Nota" style="width:70px"/>
+                    <input type="text" name="observacion" placeholder="Observacion"/>
+                    <button type="submit">Guardar</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <div th:if="${#lists.isEmpty(inscripciones)}">
+        <p>Ningun estudiante inscrito aun.</p>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Catalogo de Cursos</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div class="container">
+    <div class="nav">
+        <h1>Catalogo de Cursos</h1>
+        <div>
+            <span sec:authentication="name"></span>
+            <a sec:authorize="hasRole('PROFESOR')" href="/admin">Panel Admin</a>
+            <a sec:authorize="hasRole('ESTUDIANTE')" href="/inscripciones">Mis Inscripciones</a>
+            <form method="post" action="/logout" style="display:inline">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" style="background:none; border:none; color:#2E5FA3; cursor:pointer; font-size:14px; padding:0;">Cerrar Sesion</button>
+            </form>
+        </div>
+    </div>
+    <div class="grid">
+        <div th:each="curso : ${cursos}" class="card">
+            <h3 th:text="${curso.nombre}"></h3>
+            <p th:text="${curso.descripcion}"></p>
+            <p><strong>Creditos:</strong> <span th:text="${curso.creditos}"></span></p>
+            <p><strong>Categoria:</strong> <span th:text="${curso.categoria.nombre}"></span></p>
+            <a th:href="@{/cursos/{id}(id=${curso.id})}">Ver detalle</a>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(cursos)}">
+        <p>No hay cursos disponibles.</p>
+    </div>
+</div>
+</body>
+</html>
