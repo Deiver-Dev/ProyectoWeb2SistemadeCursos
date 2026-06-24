@@ -1,9 +1,12 @@
 package teccr.justdoitcloud.controladores;
 
 import teccr.justdoitcloud.entidades.Curso;
+import teccr.justdoitcloud.entidades.Inscripcion;
+import teccr.justdoitcloud.entidades.Nota;
 import teccr.justdoitcloud.entidades.Usuario;
 import teccr.justdoitcloud.servicios.CursoServicio;
 import teccr.justdoitcloud.servicios.InscripcionServicio;
+import teccr.justdoitcloud.servicios.NotaServicio;
 import teccr.justdoitcloud.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -11,6 +14,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/inscripciones")
@@ -19,13 +25,24 @@ public class InscripcionControlador {
     @Autowired private InscripcionServicio inscripcionServicio;
     @Autowired private CursoServicio cursoServicio;
     @Autowired private UsuarioServicio usuarioServicio;
+    @Autowired private NotaServicio notaServicio;
 
     // Mis inscripciones
     @GetMapping
     public String misInscripciones(@AuthenticationPrincipal UserDetails userDetails, Model model) {
         usuarioServicio.buscarPorCorreo(userDetails.getUsername()).ifPresent(u -> {
-            model.addAttribute("inscripciones", inscripcionServicio.obtenerPorEstudiante(u));
+            List<Inscripcion> inscripciones = inscripcionServicio.obtenerPorEstudiante(u);
+            model.addAttribute("inscripciones", inscripciones);
             model.addAttribute("usuarioActual", u);
+
+            // Construir mapa de notas por inscripcion para mostrar en la vista
+            Map<Long, Nota> notasPorInscripcion = new HashMap<>();
+            for (Inscripcion ins : inscripciones) {
+                notaServicio.buscarPorInscripcion(ins).ifPresent(nota -> {
+                    notasPorInscripcion.put(ins.getId(), nota);
+                });
+            }
+            model.addAttribute("notasPorInscripcion", notasPorInscripcion);
         });
         return "mis-inscripciones";
     }
@@ -33,13 +50,13 @@ public class InscripcionControlador {
     // Inscribirse en un curso
     @PostMapping("/inscribir/{cursoId}")
     public String inscribir(@PathVariable Long cursoId,
-                           @AuthenticationPrincipal UserDetails userDetails,
-                           Model model) {
+                            @AuthenticationPrincipal UserDetails userDetails,
+                            Model model) {
         try {
             Usuario usuario = usuarioServicio.buscarPorCorreo(userDetails.getUsername())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                    .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
             Curso curso = cursoServicio.buscarPorId(cursoId)
-                .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
+                    .orElseThrow(() -> new RuntimeException("Curso no encontrado"));
             inscripcionServicio.inscribir(usuario, curso);
             return "redirect:/inscripciones?exito=true";
         } catch (RuntimeException e) {

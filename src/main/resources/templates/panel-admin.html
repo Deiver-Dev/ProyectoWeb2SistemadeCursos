@@ -11,9 +11,9 @@
         <h1>Panel del Profesor</h1>
         <div>
             <a href="/cursos">Catalogo</a>
-            <form method="post" action="/logout" style="display:inline">
+            <form method="post" action="/logout" style="display:inline; margin:0; padding:0; max-width:none;">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button type="submit" style="background:none; border:none; color:#2E5FA3; cursor:pointer; font-size:14px; padding:0;">Cerrar Sesion</button>
+                <button type="submit" class="btn-logout">Cerrar Sesion</button>
             </form>
         </div>
     </div>
@@ -27,7 +27,8 @@
             <span th:text="${curso.activo ? 'Activo' : 'Inactivo'}"></span>
         </p>
         <a th:href="@{/admin/cursos/{id}/estudiantes(id=${curso.id})}">Ver estudiantes</a>
-        <form th:action="@{/admin/cursos/{id}/estado(id=${curso.id})}" method="post" style="display:inline">
+        <form th:action="@{/admin/cursos/{id}/estado(id=${curso.id})}" method="post"
+              style="display:inline; margin:0; padding:0; max-width:none;">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
             <input type="hidden" name="activo" th:value="${!curso.activo}"/>
             <button type="submit" th:text="${curso.activo ? 'Desactivar' : 'Activar'}"></button>

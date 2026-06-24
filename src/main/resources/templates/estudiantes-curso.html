@@ -11,14 +11,14 @@
         <h1>Estudiantes inscritos</h1>
         <div>
             <a href="/admin">Panel Admin</a>
-            <form method="post" action="/logout" style="display:inline">
+            <form method="post" action="/logout" style="display:inline; margin:0; padding:0; max-width:none;">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button type="submit" style="background:none; border:none; color:#2E5FA3; cursor:pointer; font-size:14px; padding:0;">Cerrar Sesion</button>
+                <button type="submit" class="btn-logout">Cerrar Sesion</button>
             </form>
         </div>
     </div>
     <a href="/admin">← Volver al panel</a>
-    <h2>Curso: <span th:text="${curso.nombre}"></span></h2>
+    <h2 style="margin-top:16px;">Curso: <span th:text="${curso.nombre}"></span></h2>
     <table>
         <thead>
         <tr>
@@ -36,12 +36,15 @@
             <td th:text="${ins.estado}"></td>
             <td th:text="${ins.fechaInscripcion}"></td>
             <td>
-                <form method="post" action="/admin/notas/registrar">
+                <form method="post" action="/admin/notas/registrar"
+                      style="flex-direction:row; gap:8px; margin:0; padding:0; max-width:none;">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <input type="hidden" name="inscripcionId" th:value="${ins.id}"/>
                     <input type="hidden" name="cursoId" th:value="${curso.id}"/>
-                    <input type="number" name="valor" min="0" max="100" step="0.1" placeholder="Nota" style="width:70px"/>
-                    <input type="text" name="observacion" placeholder="Observacion"/>
+                    <input type="number" name="valor" min="0" max="100" step="0.1"
+                           placeholder="Nota" style="width:80px;"/>
+                    <input type="text" name="observacion" placeholder="Observacion"
+                           style="width:160px;"/>
                     <button type="submit">Guardar</button>
                 </form>
             </td>

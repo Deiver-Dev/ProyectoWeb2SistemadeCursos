@@ -13,9 +13,9 @@
         <div>
             <a href="/cursos">Catalogo</a>
             <a sec:authorize="hasRole('ESTUDIANTE')" href="/inscripciones">Mis Inscripciones</a>
-            <form method="post" action="/logout" style="display:inline">
+            <form method="post" action="/logout" style="display:inline; margin:0; padding:0; max-width:none;">
                 <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                <button type="submit" style="background:none; border:none; color:#2E5FA3; cursor:pointer; font-size:14px; padding:0;">Cerrar Sesion</button>
+                <button type="submit" class="btn-logout">Cerrar Sesion</button>
             </form>
         </div>
     </div>
@@ -32,7 +32,8 @@
                 <p class="exito">Ya estas inscrito en este curso.</p>
             </div>
             <div th:unless="${estaInscrito}">
-                <form th:action="@{/inscripciones/inscribir/{id}(id=${curso.id})}" method="post">
+                <form th:action="@{/inscripciones/inscribir/{id}(id=${curso.id})}" method="post"
+                      style="max-width:none; margin-top:16px; padding:0;">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                     <button type="submit" class="btn-primary">Inscribirme</button>
                 </form>
