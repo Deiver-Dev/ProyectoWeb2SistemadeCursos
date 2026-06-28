@@ -1,226 +1,479 @@
-/* ── Reset ────────────────────────────────────────────── */
-* { box-sizing: border-box; margin: 0; padding: 0; }
+/* DigiTech Academy - Professional UI Theme */
+:root {
+    --primary: #0f4fd8;
+    --primary-dark: #082b73;
+    --secondary: #6d28d9;
+    --accent: #00b8d9;
+    --success: #16a34a;
+    --danger: #dc2626;
+    --warning: #f59e0b;
+    --bg: #f4f7fb;
+    --surface: #ffffff;
+    --text: #111827;
+    --muted: #64748b;
+    --border: #e5e7eb;
+    --shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+    --shadow-hover: 0 18px 45px rgba(15, 23, 42, 0.14);
+    --radius: 18px;
+}
 
-/* ── Body ─────────────────────────────────────────────── */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f4f6f9;
-    color: #333;
+    font-family: "Inter", "Segoe UI", Arial, sans-serif;
+    background:
+            radial-gradient(circle at top left, rgba(15, 79, 216, 0.12), transparent 32%),
+            radial-gradient(circle at top right, rgba(109, 40, 217, 0.12), transparent 28%),
+            var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    line-height: 1.6;
 }
 
-/* ── Contenedor principal ─────────────────────────────── */
 .container {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 20px;
+    width: min(1180px, calc(100% - 40px));
+    margin: 32px auto;
+    padding: 0;
 }
 
-/* ── Barra de navegación ──────────────────────────────── */
+/* Header / Navigation */
 .nav {
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary), var(--secondary));
+    color: white;
+    padding: 24px 28px;
+    border-radius: 24px;
+    box-shadow: var(--shadow);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 28px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #2E5FA3;
+    gap: 24px;
+    margin-bottom: 32px;
+}
+
+.nav::before {
+    content: "DigiTech Academy";
+    font-weight: 800;
+    letter-spacing: 0.3px;
+    font-size: 15px;
+    background: rgba(255,255,255,0.14);
+    padding: 8px 12px;
+    border-radius: 999px;
+    white-space: nowrap;
 }
 
 .nav h1 {
-    color: #1F3864;
-    font-size: 28px;
-    border: none;
-    margin: 0;
-    padding: 0;
+    color: white;
+    font-size: clamp(26px, 4vw, 38px);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-right: auto;
 }
 
 .nav div {
     display: flex;
     align-items: center;
     gap: 12px;
+    flex-wrap: wrap;
 }
 
 .nav span {
-    color: #555;
+    color: rgba(255,255,255,0.9);
     font-size: 14px;
 }
 
 .nav a {
-    color: #2E5FA3;
+    color: white;
     text-decoration: none;
+    font-weight: 700;
     font-size: 14px;
-    padding: 6px 14px;
-    border: 1px solid #2E5FA3;
-    border-radius: 4px;
-    transition: background 0.2s, color 0.2s;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,0.25);
+    background: rgba(255,255,255,0.12);
+    transition: 0.2s ease;
 }
 
 .nav a:hover {
-    background: #2E5FA3;
-    color: white;
+    background: white;
+    color: var(--primary-dark);
+    transform: translateY(-1px);
 }
 
-/* ── Boton cerrar sesion ──────────────────────────────── */
-.btn-logout {
-    color: #c0392b;
-    background: none;
-    border: 1px solid #c0392b;
-    border-radius: 4px;
-    padding: 6px 14px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s, color 0.2s;
+/* Typography */
+h1, h2, h3 {
+    color: var(--primary-dark);
+    line-height: 1.2;
 }
 
-.btn-logout:hover {
-    background: #c0392b;
-    color: white;
+h1 {
+    font-size: 34px;
+    margin-bottom: 18px;
+    font-weight: 800;
 }
 
-/* ── Titulos ──────────────────────────────────────────── */
-h1 { color: #1F3864; margin-bottom: 16px; }
-h2 { color: #2E5FA3; margin-bottom: 12px; }
+h2 {
+    font-size: 26px;
+    margin-bottom: 14px;
+    font-weight: 800;
+}
 
-/* ── Grid de tarjetas ─────────────────────────────────── */
+h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    font-weight: 800;
+}
+
+p {
+    color: #334155;
+    margin-bottom: 10px;
+}
+
+a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--secondary);
+}
+
+/* Grid and cards */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     gap: 24px;
     margin-top: 24px;
 }
 
 .card {
-    background: white;
-    border-radius: 10px;
-    padding: 24px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: box-shadow 0.2s;
+    background: rgba(255,255,255,0.92);
+    border: 1px solid rgba(226, 232, 240, 0.9);
+    border-radius: var(--radius);
+    padding: 26px;
+    box-shadow: var(--shadow);
+    transition: 0.22s ease;
+    position: relative;
+    overflow: hidden;
 }
 
-.card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.14); }
+.card::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--primary), var(--accent), var(--secondary));
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
 
 .card h3 {
-    color: #1F3864;
-    margin-bottom: 10px;
-    font-size: 18px;
+    color: var(--primary-dark);
 }
 
 .card p {
-    margin-bottom: 6px;
-    font-size: 14px;
-    line-height: 1.5;
+    font-size: 15px;
+}
+
+.card strong {
+    color: var(--text);
 }
 
 .card a {
-    color: #2E5FA3;
-    font-size: 14px;
-    text-decoration: none;
-    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 10px;
+    color: var(--primary);
 }
 
-.card a:hover { text-decoration: underline; }
+.card a::after {
+    content: "→";
+    transition: transform 0.2s ease;
+}
 
-/* ── Formularios ──────────────────────────────────────── */
+.card a:hover::after {
+    transform: translateX(4px);
+}
+
+/* Forms */
 form {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: var(--shadow);
     display: flex;
     flex-direction: column;
     gap: 14px;
-    max-width: 420px;
-    margin-top: 16px;
+    max-width: 540px;
+    margin-top: 18px;
+}
+
+/* Formularios que solo contienen un botón */
+form.inline-form {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin: 0;
+    max-width: none;
+}
+
+form[style*="display:inline"],
+form[style*="max-width:none"] {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
 }
 
 label {
-    font-weight: bold;
+    font-weight: 800;
+    color: var(--primary-dark);
     font-size: 14px;
-    color: #444;
 }
 
 input, select, textarea {
-    padding: 10px 14px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    font-size: 14px;
     width: 100%;
-    transition: border-color 0.2s;
+    border: 1px solid var(--border);
+    background: #f8fafc;
+    color: var(--text);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-size: 15px;
+    outline: none;
+    transition: 0.2s ease;
 }
 
 input:focus, select:focus, textarea:focus {
-    outline: none;
-    border-color: #2E5FA3;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(15, 79, 216, 0.12);
+    background: white;
 }
 
-/* ── Botones generales ────────────────────────────────── */
-button {
-    padding: 10px 22px;
-    background: #2E5FA3;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background 0.2s;
-}
-
-button:hover { background: #1F3864; }
-button:disabled { background: #aaa; cursor: not-allowed; }
-
-/* ── Boton primario (enlace con estilo de boton) ──────── */
+/* Buttons */
 .btn-primary {
-    display: inline-block;
-    padding: 10px 22px;
-    background: #2E5FA3;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: white;
-    text-decoration: none;
-    border-radius: 6px;
+    font-weight: 800;
     font-size: 14px;
-    transition: background 0.2s;
+    padding: 11px 20px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    transition: 0.2s ease;
+    box-shadow: 0 8px 20px rgba(15, 79, 216, 0.24);
 }
 
-.btn-primary:hover { background: #1F3864; }
+button:hover,
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 26px rgba(15, 79, 216, 0.32);
+    color: white;
+}
 
-/* ── Alertas ──────────────────────────────────────────── */
+.btn-logout {
+    background: white;
+    color: var(--danger);
+    border: 1px solid rgba(220, 38, 38, 0.35);
+    box-shadow: none;
+}
+
+.btn-logout:hover {
+    background: var(--danger);
+    color: white;
+}
+
+/* Alerts */
+.error,
+.exito {
+    display: inline-block;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 800;
+    font-size: 13px;
+    margin: 8px 0;
+}
+
 .error {
-    background: #fde8e8;
-    color: #c0392b;
-    padding: 12px 16px;
-    border-radius: 6px;
-    border-left: 4px solid #c0392b;
-    margin-bottom: 16px;
-    font-size: 14px;
+    background: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
 }
 
 .exito {
-    background: #d9ead3;
-    color: #1a7a3a;
-    padding: 12px 16px;
-    border-radius: 6px;
-    border-left: 4px solid #1a7a3a;
-    margin-bottom: 16px;
-    font-size: 14px;
+    background: #dcfce7;
+    color: #166534;
+    border: 1px solid #bbf7d0;
 }
 
-/* ── Tablas ───────────────────────────────────────────── */
+/* Tables */
 table {
     width: 100%;
     border-collapse: collapse;
     background: white;
-    margin-top: 20px;
-    border-radius: 8px;
+    border-radius: var(--radius);
     overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-}
-
-th, td {
-    padding: 12px 16px;
-    text-align: left;
-    border-bottom: 1px solid #e8e8e8;
-    font-size: 14px;
+    box-shadow: var(--shadow);
+    margin-top: 22px;
 }
 
 th {
-    background: #2E5FA3;
+    background: linear-gradient(135deg, var(--primary-dark), var(--primary));
     color: white;
-    font-weight: bold;
+    padding: 16px;
+    text-align: left;
+    font-size: 14px;
 }
 
-tr:hover td { background: #f8f9ff; }
-tr:last-child td { border-bottom: none; }
+td {
+    padding: 15px 16px;
+    border-bottom: 1px solid var(--border);
+    color: #334155;
+    font-size: 14px;
+}
+
+tr:hover td {
+    background: #f8fbff;
+}
+
+/* Login/Register screens */
+body:has(form[action="/login"]),
+body:has(form[action="/registro"]) {
+    display: grid;
+    place-items: center;
+    padding: 30px;
+}
+
+body:has(form[action="/login"]) .container,
+body:has(form[action="/registro"]) .container {
+    max-width: 460px;
+    background: white;
+    border-radius: 28px;
+    padding: 34px;
+    box-shadow: var(--shadow-hover);
+    border: 1px solid var(--border);
+}
+
+body:has(form[action="/login"]) h1::before,
+body:has(form[action="/registro"]) h1::before {
+    content: "DigiTech Academy";
+    display: block;
+    font-size: 15px;
+    color: var(--primary);
+    margin-bottom: 10px;
+    letter-spacing: 0.4px;
+}
+
+/* Course details page */
+.container > div:not(.nav):has(h2) {
+    background: white;
+    border-radius: var(--radius);
+    padding: 30px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+}
+
+/* Admin panel list */
+.panel-actions {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+/* Mobile */
+@media (max-width: 760px) {
+    .container {
+        width: min(100% - 24px, 1180px);
+        margin: 18px auto;
+    }
+
+    .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 22px;
+    }
+
+    .nav::before {
+        order: -1;
+    }
+
+    .nav div {
+        width: 100%;
+    }
+
+    .nav a,
+    .btn-logout {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    form {
+        max-width: 100%;
+    }
+
+}
+
+/* Corrección global de botones */
+button {
+    width: auto;
+    min-width: 160px;
+    padding: 11px 22px;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    transition: .25s;
+}
+
+.inline-form,
+form[style*="display:inline"],
+form[style*="max-width:none"] {
+    display: inline-flex !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: none !important;
+    width: auto !important;
+}
+
+.btn-primary {
+    width: auto !important;
+    min-width: 180px;
+    max-width: 230px;
+}
+
+.btn-danger {
+    background: linear-gradient(135deg,#dc2626,#991b1b);
+    color: white;
+    width: auto !important;
+    min-width: 180px;
+    max-width: 240px;
+}
+
+.btn-logout {
+    min-width: 150px;
+    width: auto !important;
+    padding: 10px 22px;
+    border-radius: 999px;
+}

@@ -29,7 +29,10 @@ public class InscripcionServicio {
 
     // Obtener inscripciones de un estudiante
     public List<Inscripcion> obtenerPorEstudiante(Usuario estudiante) {
-        return inscripcionRepositorio.findByEstudiante(estudiante);
+        return inscripcionRepositorio.findByEstudiante(estudiante)
+                .stream()
+                .filter(i -> i.getEstado() != Inscripcion.Estado.CANCELADA)
+                .toList();
     }
 
     // Obtener inscripciones de un curso

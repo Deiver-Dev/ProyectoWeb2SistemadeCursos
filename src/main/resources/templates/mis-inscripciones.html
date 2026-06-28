@@ -39,7 +39,7 @@
         <form th:action="@{/inscripciones/cancelar/{id}(id=${inscripcion.id})}" method="post"
               style="margin-top:12px; max-width:none; padding:0;">
             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-            <button type="submit" onclick="return confirm('Cancelar esta inscripcion?')">
+            <button type="submit" class="btn-danger" onclick="return confirm('Cancelar esta inscripcion?')">
                 Cancelar inscripcion
             </button>
         </form>

@@ -32,12 +32,13 @@
                 <p class="exito">Ya estas inscrito en este curso.</p>
             </div>
             <div th:unless="${estaInscrito}">
-                <form th:action="@{/inscripciones/inscribir/{id}(id=${curso.id})}" method="post"
-                      style="max-width:none; margin-top:16px; padding:0;">
-                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
-                    <button type="submit" class="btn-primary">Inscribirme</button>
-                </form>
-            </div>
+            <form class="inline-form"
+                  th:action="@{/inscripciones/inscribir/{id}(id=${curso.id})}"
+                  method="post">
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                <button type="submit" class="btn-primary">Inscribirme</button>
+            </form>
+        </div>
         </div>
     </div>
     <div th:if="${curso == null}">
