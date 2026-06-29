@@ -1,5 +1,6 @@
 package teccr.justdoitcloud.controladores;
 
+import teccr.justdoitcloud.entidades.Categoria;
 import teccr.justdoitcloud.entidades.Curso;
 import teccr.justdoitcloud.entidades.Usuario;
 import teccr.justdoitcloud.servicios.CategoriaServicio;
