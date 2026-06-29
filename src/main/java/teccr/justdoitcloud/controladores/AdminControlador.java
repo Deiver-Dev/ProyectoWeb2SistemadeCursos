@@ -13,6 +13,10 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import teccr.justdoitcloud.entidades.Inscripcion;
+import teccr.justdoitcloud.entidades.Nota;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/admin")
@@ -68,9 +72,22 @@ public class AdminControlador {
     @GetMapping("/cursos/{id}/estudiantes")
     public String verEstudiantes(@PathVariable Long id, Model model) {
         cursoServicio.buscarPorId(id).ifPresent(curso -> {
+            var inscripciones = inscripcionServicio.obtenerPorCurso(curso);
+
             model.addAttribute("curso", curso);
-            model.addAttribute("inscripciones", inscripcionServicio.obtenerPorCurso(curso));
+            model.addAttribute("inscripciones", inscripciones);
+
+            Map<Long, Nota> notasPorInscripcion = new HashMap<>();
+
+            for (Inscripcion ins : inscripciones) {
+                notaServicio.buscarPorInscripcion(ins).ifPresent(nota -> {
+                    notasPorInscripcion.put(ins.getId(), nota);
+                });
+            }
+
+            model.addAttribute("notasPorInscripcion", notasPorInscripcion);
         });
+
         return "estudiantes-curso";
     }
 

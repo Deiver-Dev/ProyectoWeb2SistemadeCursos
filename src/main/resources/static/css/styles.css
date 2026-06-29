@@ -477,3 +477,29 @@ form[style*="max-width:none"] {
     padding: 10px 22px;
     border-radius: 999px;
 }
+
+.nota-form {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+.nota-form input[type="number"] {
+    width: 90px !important;
+}
+
+.nota-form input[type="text"] {
+    width: 180px !important;
+}
+
+.nota-form button {
+    min-width: 100px !important;
+    max-width: 120px !important;
+}
